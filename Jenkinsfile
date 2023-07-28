@@ -32,7 +32,7 @@ pipeline{
 
                stage("Test"){
 			  steps{
-                                build "jobe1"
+                                build "pipe1"
                                echo "hello this is first declarative script"
                    }
 		} 
