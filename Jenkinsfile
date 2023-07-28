@@ -1,61 +1,40 @@
+
 pipeline{
-	agent{ 
-	        label "built-in"
-	     }
-        stages{
+	 agent{
+              label{
+                     label "built-in"
+                     customWorkspace "/mnt/prachi11"
+                   }
+            }
 
-		stage( "seq-1"){
-                                steps{
-                                      sleep 10
-                                      echo "seq step-1"
-                         	      }
-				}
-          
-		stage( "seq-2"){
-                                steps{
-                                      sleep 10
-                                      echo "seq step-2"
-                         	      }
+	 stages{
+               stage("stage-1"){
+                               steps{
+                                    sleep 10
+                                    echo "welcome step 1"
+			            }
 				}
 
-                 stage("parallel-stages"){ 
-                       parallel{
-                           stage ("parallel-1"){
-                                 steps{
-                      		       sleep 10
-                                       echo "hello all"
-                                      }
+               stage("stage-2"){
+
+                         agent{
+                             label{
+                                   label "slave-B"
+                                   customWorkspace "/mnt/sonali"
                                    }
-                           stage ("parallel-2"){
-                                  steps{
-                                        sleep 10
-                                        echo "second hii"
-                                       }
-                                    }
-                           stage ("parallel-3"){
-                                   steps{
-                                           sleep 10
-                                           echo"thirs hii"
-                                          }
-                                     }
-                                 }
-                             }
+                               }
+                               
+                          steps{
+                                    sleep 10
+                                    echo "welcome step 2"
+			            }
+		}
 
-		stage( "seq-3"){
-                                steps{
-                                      sleep 10
-                                      echo "seq step-3"
-                         	      }
-				}
-
-		stage( "seq-4"){
-                                steps{
-                                      sleep 10
-                                      echo "seq step-4"
-                         	      }
-				}
-          
-          
-
-                  }
-          }  
+               stage("Test"){
+			  steps{
+                                build "jobe1"
+                               echo "hello this is first declarative script"
+                   }
+		} 
+		}
+}  
