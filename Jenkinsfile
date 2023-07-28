@@ -1,24 +1,29 @@
 pipeline{
-	 agent{
-              label "built-in"
-              }
-
-
-		stages{
-
-                 stage ("stage -1"){
-			steps{
-                               echo "hello this is first declarative script"
-                            }
-		      } 
-		
-		stage ("stage -2"){
-                        steps{
-                             echo "second line second steps ,Hello"
+	agent{ 
+	        label "built-in"
+	     }
+        stages{
+                stage("parallel-stages"){ 
+                       parallel{
+                           stage ("parallel-1"){
+                                 steps{
+                      		       sleep 10
+                                       echo "hello all"
+                                      }
+                                   }
+                           stage ("parallel-2"){
+                                  steps{
+                                        sleep 10
+                                        echo "second hii"
+                                       }
+                                    }
+                           stage ("parallel-3"){
+                                   steps{
+                                           sleep 10
+                                           echo"thirs hii"
+                                          }
+                                     }
+                                 }
                              }
-		    }
-             }
-}
-
-
-
+                  }
+          } 
